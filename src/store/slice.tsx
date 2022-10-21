@@ -5,16 +5,17 @@ export const defaultSlice = createSlice({
   initialState: {
     tiles: [
       {
+        id: 1,
         text: "Tile 1",
         cols: 2,
         rows: 1,
         img: "",
       },
-      { text: "Tile 2", cols: 3, rows: 1, img: "" },
-      { text: "Tile 3", cols: 1, rows: 3, img: "" },
-      { text: "Tile 4", cols: 2, rows: 3, img: "" },
-      { text: "Tile 5", cols: 2, rows: 1, img: "" },
-      { text: "Tile 6", cols: 2, rows: 2, img: "" },
+      { id: 2, text: "Tile 2", cols: 3, rows: 1, img: "" },
+      { id: 3, text: "Tile 3", cols: 1, rows: 3, img: "" },
+      { id: 4, text: "Tile 4", cols: 2, rows: 3, img: "" },
+      { id: 5, text: "Tile 5", cols: 2, rows: 1, img: "" },
+      { id: 6, text: "Tile 6", cols: 2, rows: 2, img: "" },
     ],
     size: {
       width: 200,

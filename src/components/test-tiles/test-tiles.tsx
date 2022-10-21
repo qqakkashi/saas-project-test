@@ -1,48 +1,172 @@
 import "../../../node_modules/react-tiles-dnd/esm/index.css";
 import { TilesContainer, RenderTileFunction } from "react-tiles-dnd";
-import { TilesWrapper, Wrapper, TileContent } from "./test-tiles.styled";
-import { useEffect, useState } from "react";
+import {
+  TilesWrapper,
+  Wrapper,
+  TileContent,
+  TileDelete,
+  TileConfirm,
+  ConfirmButton,
+  TileConfirmWrapper,
+} from "./test-tiles.styled";
+import { Component } from "react";
+import { setTiles, setSize } from "../../store/slice";
+import { connect } from "react-redux";
 
-export const TestTiles = (props: any) => {
-  const [tiles, setTiles] = useState<any[]>([]);
-  const [size, setSize] = useState<any>({});
+interface displayDetails {
+  display: boolean;
+  id: any;
+}
+interface Size {
+  width: number;
+  height: number;
+}
 
-  useEffect(() => {
-    setTiles(props.tiles);
-    setSize(props.size);
-  }, [props]);
+const mapStateToProps = (state: { tilesState: { tiles: any; size: any } }) => ({
+  tiles: state.tilesState.tiles,
+  size: state.tilesState.size,
+});
 
-  console.log(props);
+class TestTiles extends Component<
+  { tiles: Array<any>; size: Size; setTiles: any; setSize: any },
+  {
+    pageTiles: any;
+    size: any;
+    displayDetails: displayDetails;
+    displayModal: boolean;
+  }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      pageTiles: [],
+      size: {},
+      displayDetails: { display: false, id: null },
+      displayModal: false,
+    };
+  }
+  componentDidMount(): void {
+    this.setState({ pageTiles: this.props?.tiles });
+    this.setState({ size: this.props?.size });
+  }
 
-  const render: RenderTileFunction<typeof tiles[0]> = ({
-    data,
-    isDragging,
-  }) => (
-    <TilesWrapper>
-      <TileContent isDragging={isDragging}>
-        {data.text ? <p>{data.text}</p> : null}{" "}
-        <p>{isDragging ? "DRAGGING" : null}</p>
-        {data.img !== "" ? <img src={data.img}></img> : null}
-      </TileContent>
-    </TilesWrapper>
-  );
+  deleteTile(id: number) {
+    const readyTiles = [...this.state.pageTiles];
 
-  const tileSize = (tile: typeof tiles[0]) => ({
+    readyTiles.map((tile, index) => {
+      if (tile.id == id) {
+        readyTiles.splice(index, 1);
+      }
+    });
+    console.log(this.props);
+    this.props.setTiles(readyTiles);
+    this.props.setSize({
+      width: this.props.size.width,
+      height: this.props.size.height,
+    });
+  }
+
+  componentDidUpdate(
+    prevProps: Readonly<{
+      tiles: Array<any>;
+      size: Object;
+      setTiles: any;
+      setSize: any;
+    }>
+  ): void {
+    if (prevProps.tiles !== this.props.tiles) {
+      this.setState({ pageTiles: this.props.tiles });
+    }
+  }
+
+  tileSize = (tile: typeof this.state.pageTiles[0]) => ({
     colSpan: tile.cols,
     rowSpan: tile.rows,
   });
 
-  return (
-    <Wrapper>
-      <TilesContainer
-        data={tiles}
-        renderTile={render}
-        tileSize={tileSize}
-        forceTileWidth={size?.width}
-        forceTileHeight={size?.height}
-      ></TilesContainer>
-    </Wrapper>
-  );
-};
+  render() {
+    const displayObject = this.state.displayDetails;
+    const render: RenderTileFunction<typeof this.state.pageTiles[0]> = ({
+      data,
+      isDragging,
+    }) => (
+      <TilesWrapper>
+        <TileContent
+          isDragging={isDragging}
+          onMouseEnter={() => {
+            console.log(data.id, "enter");
+            this.setState({
+              displayDetails: {
+                display: true,
+                id: data.id,
+              },
+            });
+          }}
+          onMouseLeave={() =>
+            this.setState({
+              displayDetails: {
+                display: false,
+                id: data.id,
+              },
+            })
+          }
+          value={data.id}
+        >
+          {!isDragging &&
+          displayObject.display &&
+          displayObject.id == data.id ? (
+            <TileDelete
+              onClick={() => {
+                this.setState({
+                  displayModal: !this.state.displayModal,
+                });
+              }}
+            />
+          ) : null}
+          {data.id ? <p>{data.id}</p> : null}
+          {data.text ? <p>{data.text}</p> : null}{" "}
+          <p>{isDragging ? "DRAGGING" : null}</p>
+          {data.img !== "" ? <img src={data.img}></img> : null}
+        </TileContent>
+      </TilesWrapper>
+    );
+    return (
+      <Wrapper>
+        {this.state.displayModal ? (
+          <>
+            <TileConfirmWrapper
+              onClick={() => {
+                this.setState({
+                  displayModal: !this.state.displayModal,
+                });
+              }}
+            ></TileConfirmWrapper>
+            <TileConfirm>
+              Вы действительно хотите удалить?
+              <ConfirmButton
+                onClick={() => {
+                  this.deleteTile(displayObject.id);
+                  this.setState({
+                    displayModal: !this.state.displayModal,
+                  });
+                }}
+              >
+                Да
+              </ConfirmButton>
+            </TileConfirm>
+          </>
+        ) : null}
 
-export default TestTiles;
+        <TilesContainer
+          data={this.state.pageTiles}
+          renderTile={render}
+          tileSize={this.tileSize}
+          forceTileWidth={this.props.size?.width}
+          forceTileHeight={this.props.size?.height}
+        ></TilesContainer>
+      </Wrapper>
+    );
+  }
+}
+
+export default connect(mapStateToProps, { setTiles, setSize })(TestTiles);

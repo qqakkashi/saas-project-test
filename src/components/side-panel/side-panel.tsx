@@ -25,6 +25,7 @@ class SidePanel extends PureComponent<
             this.props.setTiles([
               ...this.props.tiles,
               {
+                id: this.props.tiles.length + 1,
                 text: "",
                 cols: 1,
                 rows: 1,
@@ -44,6 +45,7 @@ class SidePanel extends PureComponent<
             this.props.setTiles([
               ...this.props.tiles,
               {
+                id: this.props.tiles.length + 1,
                 text: "",
                 cols: 1,
                 rows: 2,
@@ -63,6 +65,7 @@ class SidePanel extends PureComponent<
             this.props.setTiles([
               ...this.props.tiles,
               {
+                id: this.props.tiles.length + 1,
                 text: "",
                 cols: 2,
                 rows: 1,
@@ -82,6 +85,7 @@ class SidePanel extends PureComponent<
             this.props.setTiles([
               ...this.props.tiles,
               {
+                id: this.props.tiles.length + 1,
                 text: "",
                 cols: 2,
                 rows: 2,

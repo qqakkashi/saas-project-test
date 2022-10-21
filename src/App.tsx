@@ -13,7 +13,13 @@ const mapStateToProps = (state: { tilesState: { tiles: any; size: any } }) => ({
 class App extends PureComponent<
   { tiles: any; setTiles: any; size: any; setSize: any },
   {
-    tiles: { text: string; cols: number; rows: number; img: string }[];
+    tiles: {
+      text: string;
+      cols: number;
+      rows: number;
+      img: string;
+      id: number;
+    }[];
     size: { width: number; height: number };
     label: string;
   }
@@ -38,42 +44,36 @@ class App extends PureComponent<
     });
     this.props.setTiles([
       {
+        id: 1,
         text: "",
         cols: 2,
         rows: 1,
         img: "",
       },
-      { text: "", cols: 3, rows: 1, img: "" },
-      { text: "", cols: 1, rows: 3, img: "" },
-      { text: "", cols: 2, rows: 3, img: "" },
-      { text: "", cols: 2, rows: 1, img: "" },
-      { text: "", cols: 2, rows: 2, img: "" },
+      { id: 2, text: "", cols: 3, rows: 1, img: "" },
+      { id: 3, text: "", cols: 1, rows: 3, img: "" },
+      { id: 4, text: "", cols: 2, rows: 3, img: "" },
+      { id: 5, text: "", cols: 2, rows: 1, img: "" },
+      { id: 6, text: "", cols: 2, rows: 2, img: "" },
     ]);
   }
   render() {
-    console.log(this.props.tiles);
-    console.log(this.props.size);
     return (
       <AppContainer>
         <WrapperApp>
           <h1>{this.state.label}</h1>
 
-          <TestTiles tiles={this.props.tiles} size={this.props.size} />
+          <TestTiles />
           <WrapperButton>
             <Button
               onClick={() => {
                 this.props.setTiles([
-                  {
-                    text: "",
-                    cols: 2,
-                    rows: 1,
-                    img: "",
-                  },
-                  { text: "", cols: 3, rows: 1, img: "" },
-                  { text: "", cols: 1, rows: 3, img: "" },
-                  { text: "", cols: 2, rows: 3, img: "" },
-                  { text: "", cols: 2, rows: 1, img: "" },
-                  { text: "", cols: 2, rows: 2, img: "" },
+                  { id: 1, text: "", cols: 2, rows: 1, img: "" },
+                  { id: 2, text: "", cols: 3, rows: 1, img: "" },
+                  { id: 3, text: "", cols: 1, rows: 3, img: "" },
+                  { id: 4, text: "", cols: 2, rows: 3, img: "" },
+                  { id: 5, text: "", cols: 2, rows: 1, img: "" },
+                  { id: 6, text: "", cols: 2, rows: 2, img: "" },
                 ]);
                 this.props.setSize({
                   width: 200,
@@ -89,11 +89,11 @@ class App extends PureComponent<
             <Button
               onClick={() => {
                 this.props.setTiles([
-                  { text: "", cols: 2, rows: 1, img: "" },
-                  { text: "", cols: 1, rows: 3, img: "" },
-                  { text: "", cols: 1, rows: 1, img: "" },
-                  { text: "", cols: 1, rows: 2, img: "" },
-                  { text: "", cols: 1, rows: 1, img: "" },
+                  { id: 1, text: "", cols: 2, rows: 1, img: "" },
+                  { id: 2, text: "", cols: 1, rows: 3, img: "" },
+                  { id: 3, text: "", cols: 1, rows: 1, img: "" },
+                  { id: 4, text: "", cols: 1, rows: 2, img: "" },
+                  { id: 5, text: "", cols: 1, rows: 1, img: "" },
                 ]);
                 this.props.setSize({
                   width: 330,
@@ -109,12 +109,12 @@ class App extends PureComponent<
             <Button
               onClick={() => {
                 this.props.setTiles([
-                  { text: "", cols: 1, rows: 1, img: "" },
-                  { text: "", cols: 2, rows: 1, img: "" },
-                  { text: "", cols: 1, rows: 4, img: "" },
-                  { text: "", cols: 1, rows: 2, img: "" },
-                  { text: "", cols: 2, rows: 2, img: "" },
-                  { text: "", cols: 3, rows: 1, img: "" },
+                  { id: 1, text: "", cols: 1, rows: 1, img: "" },
+                  { id: 2, text: "", cols: 2, rows: 1, img: "" },
+                  { id: 3, text: "", cols: 1, rows: 4, img: "" },
+                  { id: 4, text: "", cols: 1, rows: 2, img: "" },
+                  { id: 5, text: "", cols: 2, rows: 2, img: "" },
+                  { id: 6, text: "", cols: 3, rows: 1, img: "" },
                 ]);
                 this.props.setSize({
                   width: 250,
@@ -130,13 +130,13 @@ class App extends PureComponent<
             <Button
               onClick={() => {
                 this.props.setTiles([
-                  { text: "", cols: 1, rows: 3, img: "" },
-                  { text: "", cols: 1, rows: 3, img: "" },
-                  { text: "", cols: 3, rows: 1, img: "" },
-                  { text: "", cols: 2, rows: 3, img: "" },
-                  { text: "", cols: 2, rows: 1, img: "" },
-                  { text: "", cols: 1, rows: 4, img: "" },
-                  { text: "", cols: 4, rows: 1, img: "" },
+                  { id: 1, text: "", cols: 1, rows: 3, img: "" },
+                  { id: 2, text: "", cols: 1, rows: 3, img: "" },
+                  { id: 3, text: "", cols: 3, rows: 1, img: "" },
+                  { id: 4, text: "", cols: 2, rows: 3, img: "" },
+                  { id: 5, text: "", cols: 2, rows: 1, img: "" },
+                  { id: 6, text: "", cols: 1, rows: 4, img: "" },
+                  { id: 7, text: "", cols: 4, rows: 1, img: "" },
                 ]);
                 this.props.setSize({
                   width: 200,
