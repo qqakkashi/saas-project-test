@@ -12,6 +12,8 @@ import {
 import { Component } from "react";
 import { setTiles, setSize } from "../../store/slice";
 import { connect } from "react-redux";
+import { FcCancel } from "react-icons/fc";
+import { IconContext } from "react-icons";
 
 interface displayDetails {
   display: boolean;
@@ -54,11 +56,8 @@ class TestTiles extends Component<
     const readyTiles = [...this.state.pageTiles];
 
     readyTiles.map((tile, index) => {
-      if (tile.id == id) {
-        readyTiles.splice(index, 1);
-      }
+      return tile.id === id ? readyTiles.splice(index, 1) : null;
     });
-    console.log(this.props);
     this.props.setTiles(readyTiles);
     this.props.setSize({
       width: this.props.size.width,
@@ -94,7 +93,6 @@ class TestTiles extends Component<
         <TileContent
           isDragging={isDragging}
           onMouseEnter={() => {
-            console.log(data.id, "enter");
             this.setState({
               displayDetails: {
                 display: true,
@@ -114,19 +112,21 @@ class TestTiles extends Component<
         >
           {!isDragging &&
           displayObject.display &&
-          displayObject.id == data.id ? (
+          displayObject.id === data.id ? (
             <TileDelete
               onClick={() => {
                 this.setState({
                   displayModal: !this.state.displayModal,
                 });
               }}
-            />
+            >
+              <FcCancel style={{ width: 25, height: 25 }} />
+            </TileDelete>
           ) : null}
           {data.id ? <p>{data.id}</p> : null}
           {data.text ? <p>{data.text}</p> : null}{" "}
           <p>{isDragging ? "DRAGGING" : null}</p>
-          {data.img !== "" ? <img src={data.img}></img> : null}
+          {data.img !== "" ? <img src={data.img} alt={data.img}></img> : null}
         </TileContent>
       </TilesWrapper>
     );

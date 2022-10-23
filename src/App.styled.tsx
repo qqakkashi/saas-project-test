@@ -13,9 +13,10 @@ export const WrapperButton = styled.div`
   margin: 0 auto;
 `;
 
-export const AppContainer = styled.div`
+export const AppContainer = styled.main`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 export const Button = styled.button`

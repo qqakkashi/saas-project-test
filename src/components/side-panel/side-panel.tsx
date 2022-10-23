@@ -8,94 +8,107 @@ const mapStateToProps = (state: { tilesState: { tiles: any; size: any } }) => ({
   size: state.tilesState.size,
 });
 
-interface Props {
-  width: any;
-  height: any;
-}
-
 class SidePanel extends PureComponent<
   { tiles: any; setTiles: any; size: any; setSize: any },
-  {}
+  { id: number }
 > {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      id: Math.max.apply(
+        null,
+        this.props?.tiles?.map((tile: any) => {
+          return tile.id;
+        })
+      ),
+    };
+  }
+  sidePanelClick(
+    id: number,
+    text: string,
+    cols: number,
+    row: number,
+    img: string,
+    width: number,
+    height: number
+  ) {
+    this.props.setTiles([
+      ...this.props.tiles,
+      {
+        id: id,
+        text: text,
+        cols: cols,
+        rows: row,
+        img: img,
+      },
+    ]);
+    this.props.setSize({
+      width: width,
+      height: height,
+    });
+    this.setState({
+      id: id,
+    });
+  }
   render() {
     return (
       <SidePanelContainer>
         <SidePannelPlusTile
           onClick={() => {
-            this.props.setTiles([
-              ...this.props.tiles,
-              {
-                id: this.props.tiles.length + 1,
-                text: "",
-                cols: 1,
-                rows: 1,
-                img: "",
-              },
-            ]);
-            this.props.setSize({
-              width: this.props.size.width,
-              height: this.props.size.height,
-            });
+            this.sidePanelClick(
+              this.state.id + 1,
+              "",
+              1,
+              1,
+              "",
+              this.props.size.width,
+              this.props.size.height
+            );
           }}
         >
           1x1
         </SidePannelPlusTile>
         <SidePannelPlusTile
           onClick={() => {
-            this.props.setTiles([
-              ...this.props.tiles,
-              {
-                id: this.props.tiles.length + 1,
-                text: "",
-                cols: 1,
-                rows: 2,
-                img: "",
-              },
-            ]);
-            this.props.setSize({
-              width: this.props.size.width,
-              height: this.props.size.height,
-            });
+            this.sidePanelClick(
+              this.state.id + 1,
+              "",
+              1,
+              2,
+              "",
+              this.props.size.width,
+              this.props.size.height
+            );
           }}
         >
           1x2
         </SidePannelPlusTile>
         <SidePannelPlusTile
           onClick={() => {
-            this.props.setTiles([
-              ...this.props.tiles,
-              {
-                id: this.props.tiles.length + 1,
-                text: "",
-                cols: 2,
-                rows: 1,
-                img: "",
-              },
-            ]);
-            this.props.setSize({
-              width: this.props.size.width,
-              height: this.props.size.height,
-            });
+            this.sidePanelClick(
+              this.state.id + 1,
+              "",
+              1,
+              2,
+              "",
+              this.props.size.width,
+              this.props.size.height
+            );
           }}
         >
           2x1
         </SidePannelPlusTile>
         <SidePannelPlusTile
           onClick={() => {
-            this.props.setTiles([
-              ...this.props.tiles,
-              {
-                id: this.props.tiles.length + 1,
-                text: "",
-                cols: 2,
-                rows: 2,
-                img: "",
-              },
-            ]);
-            this.props.setSize({
-              width: this.props.size.width,
-              height: this.props.size.height,
-            });
+            this.sidePanelClick(
+              this.state.id + 1,
+              "",
+              2,
+              2,
+              "",
+              this.props.size.width,
+              this.props.size.height
+            );
           }}
         >
           2x2

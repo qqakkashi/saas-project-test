@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   padding: 1rem;
   margin: 20px auto;
   flex-direction: column;
+  position: relative;
 `;
 
 export const TilesWrapper = styled.div`
@@ -34,36 +35,52 @@ export const TileContent = styled.button<TileContentProps>`
     isDragging ? "scale(1.06) rotate(3deg)" : null};
 `;
 
-// interface TileDeleteProps {
-//   onSelect: boolean;
-// }
-
 export const TileDelete = styled.div`
-  // display: none;
   position: absolute;
   width: 25px;
   top: 0;
-  background-color: red;
   left: 0;
   height: 25px;
-  border-radius: 15px;
+  cursor: pointer;
 `;
 export const TileConfirm = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   position: absolute;
   width: 400px;
   height: 200px;
-  top: 0;
   left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
   background-color: #ffffff;
   align-items: center;
   z-index: 3;
+  border-radius: 20px;
+  font-size: 18px;
 `;
 export const ConfirmButton = styled.button`
-  width: 150px;
-  height: 50px;
+  box-shadow: inset 0px 1px 0px 0px #fffcff;
+  background-color: #ededed;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #292929;
+  font-size: 19px;
+  font-weight: bold;
+  padding: 7px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+  &:hover {
+    background-color: #ffffff;
+  }
+  &:active {
+    position: relative;
+    top: 1px;
+  }
 `;
 
 export const TileConfirmWrapper = styled.div`
@@ -76,4 +93,6 @@ export const TileConfirmWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #e5e5e5;
+  opacity: 0.65;
 `;
