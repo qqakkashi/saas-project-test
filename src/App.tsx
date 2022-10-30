@@ -42,20 +42,6 @@ class App extends PureComponent<
     this.setState({
       label: "Variant 1",
     });
-    this.props.setTiles([
-      {
-        id: 1,
-        text: "",
-        cols: 2,
-        rows: 1,
-        img: "",
-      },
-      { id: 2, text: "", cols: 3, rows: 1, img: "" },
-      { id: 3, text: "", cols: 1, rows: 3, img: "" },
-      { id: 4, text: "", cols: 2, rows: 3, img: "" },
-      { id: 5, text: "", cols: 2, rows: 1, img: "" },
-      { id: 6, text: "", cols: 2, rows: 2, img: "" },
-    ]);
   }
   render() {
     return (

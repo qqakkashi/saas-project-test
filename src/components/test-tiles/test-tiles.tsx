@@ -48,6 +48,7 @@ class TestTiles extends Component<
     };
   }
   componentDidMount(): void {
+    console.log(this.props.tiles);
     this.setState({ pageTiles: this.props?.tiles });
     this.setState({ size: this.props?.size });
   }

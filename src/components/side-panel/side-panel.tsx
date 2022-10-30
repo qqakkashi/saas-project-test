@@ -1,16 +1,27 @@
 import { PureComponent } from "react";
 import { SidePanelContainer, SidePannelPlusTile } from "./side-panel.styled";
 import { connect } from "react-redux";
-import { setTiles, setSize } from "../../store/slice";
+import { setTiles, setSize, setSizeModal } from "../../store/slice";
+import TilesSizeSelect from "../tiles-size-select/tiles-size-select";
 
-const mapStateToProps = (state: { tilesState: { tiles: any; size: any } }) => ({
+const mapStateToProps = (state: {
+  tilesState: { tiles: any; size: any; modalState: boolean };
+}) => ({
   tiles: state.tilesState.tiles,
   size: state.tilesState.size,
+  modalState: state.tilesState.modalState,
 });
 
 class SidePanel extends PureComponent<
-  { tiles: any; setTiles: any; size: any; setSize: any },
-  { id: number }
+  {
+    tiles: any;
+    setTiles: any;
+    size: any;
+    setSize: any;
+    modalState: boolean;
+    setSizeModal: any;
+  },
+  { id: number; isSetSize: boolean }
 > {
   constructor(props: any) {
     super(props);
@@ -21,6 +32,7 @@ class SidePanel extends PureComponent<
           return tile.id;
         })
       ),
+      isSetSize: false,
     };
   }
   sidePanelClick(
@@ -52,70 +64,81 @@ class SidePanel extends PureComponent<
   }
   render() {
     return (
-      <SidePanelContainer>
-        <SidePannelPlusTile
-          onClick={() => {
-            this.sidePanelClick(
-              this.state.id + 1,
-              "",
-              1,
-              1,
-              "",
-              this.props.size.width,
-              this.props.size.height
-            );
-          }}
-        >
-          1x1
-        </SidePannelPlusTile>
-        <SidePannelPlusTile
-          onClick={() => {
-            this.sidePanelClick(
-              this.state.id + 1,
-              "",
-              1,
-              2,
-              "",
-              this.props.size.width,
-              this.props.size.height
-            );
-          }}
-        >
-          1x2
-        </SidePannelPlusTile>
-        <SidePannelPlusTile
-          onClick={() => {
-            this.sidePanelClick(
-              this.state.id + 1,
-              "",
-              1,
-              2,
-              "",
-              this.props.size.width,
-              this.props.size.height
-            );
-          }}
-        >
-          2x1
-        </SidePannelPlusTile>
-        <SidePannelPlusTile
-          onClick={() => {
-            this.sidePanelClick(
-              this.state.id + 1,
-              "",
-              2,
-              2,
-              "",
-              this.props.size.width,
-              this.props.size.height
-            );
-          }}
-        >
-          2x2
-        </SidePannelPlusTile>
-      </SidePanelContainer>
+      <>
+        <SidePanelContainer>
+          <SidePannelPlusTile
+            onClick={() => this.props.setSizeModal(!this.props.modalState)}
+          >
+            +
+          </SidePannelPlusTile>
+
+          <SidePannelPlusTile
+            onClick={() => {
+              this.sidePanelClick(
+                this.state.id + 1,
+                "",
+                1,
+                1,
+                "",
+                this.props.size.width,
+                this.props.size.height
+              );
+            }}
+          >
+            1x1
+          </SidePannelPlusTile>
+          <SidePannelPlusTile
+            onClick={() => {
+              this.sidePanelClick(
+                this.state.id + 1,
+                "",
+                1,
+                2,
+                "",
+                this.props.size.width,
+                this.props.size.height
+              );
+            }}
+          >
+            1x2
+          </SidePannelPlusTile>
+          <SidePannelPlusTile
+            onClick={() => {
+              this.sidePanelClick(
+                this.state.id + 1,
+                "",
+                1,
+                2,
+                "",
+                this.props.size.width,
+                this.props.size.height
+              );
+            }}
+          >
+            2x1
+          </SidePannelPlusTile>
+          <SidePannelPlusTile
+            onClick={() => {
+              this.sidePanelClick(
+                this.state.id + 1,
+                "",
+                2,
+                2,
+                "",
+                this.props.size.width,
+                this.props.size.height
+              );
+            }}
+          >
+            2x2
+          </SidePannelPlusTile>
+        </SidePanelContainer>
+        {this.props.modalState ? <TilesSizeSelect /> : null}
+      </>
     );
   }
 }
 
-export default connect(mapStateToProps, { setTiles, setSize })(SidePanel);
+export default connect(mapStateToProps, { setTiles, setSize, setSizeModal })(
+  SidePanel
+);
