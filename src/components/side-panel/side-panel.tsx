@@ -5,7 +5,7 @@ import { setTiles, setSize, setSizeModal } from "../../store/slice";
 import TilesSizeSelect from "../tiles-size-select/tiles-size-select";
 
 const mapStateToProps = (state: {
-  tilesState: { tiles: any; size: any; modalState: boolean };
+  tilesState: { tiles: Array<any>; size: any; modalState: boolean };
 }) => ({
   tiles: state.tilesState.tiles,
   size: state.tilesState.size,
@@ -14,7 +14,7 @@ const mapStateToProps = (state: {
 
 class SidePanel extends PureComponent<
   {
-    tiles: any;
+    tiles: Array<any>;
     setTiles: any;
     size: any;
     setSize: any;
