@@ -71,67 +71,6 @@ class SidePanel extends PureComponent<
           >
             +
           </SidePannelPlusTile>
-
-          <SidePannelPlusTile
-            onClick={() => {
-              this.sidePanelClick(
-                this.state.id + 1,
-                "",
-                1,
-                1,
-                "",
-                this.props.size.width,
-                this.props.size.height
-              );
-            }}
-          >
-            1x1
-          </SidePannelPlusTile>
-          <SidePannelPlusTile
-            onClick={() => {
-              this.sidePanelClick(
-                this.state.id + 1,
-                "",
-                1,
-                2,
-                "",
-                this.props.size.width,
-                this.props.size.height
-              );
-            }}
-          >
-            1x2
-          </SidePannelPlusTile>
-          <SidePannelPlusTile
-            onClick={() => {
-              this.sidePanelClick(
-                this.state.id + 1,
-                "",
-                1,
-                2,
-                "",
-                this.props.size.width,
-                this.props.size.height
-              );
-            }}
-          >
-            2x1
-          </SidePannelPlusTile>
-          <SidePannelPlusTile
-            onClick={() => {
-              this.sidePanelClick(
-                this.state.id + 1,
-                "",
-                2,
-                2,
-                "",
-                this.props.size.width,
-                this.props.size.height
-              );
-            }}
-          >
-            2x2
-          </SidePannelPlusTile>
         </SidePanelContainer>
         {this.props.modalState ? <TilesSizeSelect /> : null}
       </>
